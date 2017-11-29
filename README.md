@@ -24,14 +24,19 @@
 项目使用技术:
 
 Ruby 2.3.2
+
 Ruby on Rails 5.1.4
+
 MySQL
 
 涉及到的主要Gem:
 
 sorcery
+
 ancestry
+
 paperclip
+
 redis
 
 ### 运行
