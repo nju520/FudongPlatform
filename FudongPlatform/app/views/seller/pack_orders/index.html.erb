@@ -1,0 +1,13 @@
+<h1> 我的买家订单 (<%= @pack_orders.count %>)</h1>
+<div class="row">
+  <% unless @pack_orders.blank? %>
+    <% @pack_orders.each do |pack_order| %>
+      <%= render partial: "pack_order", locals: {pack_order: pack_order} %>
+    <% end -%>
+    <%= will_paginate @pack_orders %>
+  <% else %>
+    <h3>订单为空</h3>
+  <% end -%>
+
+  <div class="clearfix"></div>
+</div>

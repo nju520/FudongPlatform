@@ -1,0 +1,25 @@
+<div>
+  <h1>
+    商品 #<%= @product.id %> <%= @product.title %>
+  </h1>
+</div>
+
+<div>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>图片</th>
+      <th>权重</th>
+      <th></th>
+    </tr>
+
+    <% @product_images.each do |product_image| %>
+      <tr>
+        <td><%= product_image.id %></td>
+        <td><%= image_tag product_image.image.url(:middle) %></td>
+        <td><%= product_image.weight %></td>
+      </tr>
+    <% end -%>
+  </table>
+
+</div>

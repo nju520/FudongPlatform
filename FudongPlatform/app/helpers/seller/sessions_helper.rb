@@ -1,0 +1,2 @@
+module Seller::SessionsHelper
+end
