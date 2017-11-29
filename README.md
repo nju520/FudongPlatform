@@ -36,8 +36,11 @@ redis
 
 ### 运行
 $ cd FudongPlatform
+
 $ rails db:create
+
 $ rails db:migrate
+
 $ rails db:seed
 
 ### snips目录
