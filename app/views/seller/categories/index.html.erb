@@ -1,0 +1,35 @@
+<div>
+  <h1>
+    <% if @category %>
+      分类:<%= @category.title %>(<%= @categories.total_entries %>)
+    <% else %>
+      分类(<%= @categories.total_entries %>)
+    <% end -%>
+  </h1>
+</div>
+
+<div>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>名称</th>
+      <th>Weight</th>
+      <th></th>
+    </tr>
+
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.id %></td>
+        <td><%= category.title %></td>
+        <td><%= category.weight %></td>
+        <td>
+          <% if category.root? %>
+            <%= link_to "查看子分类", seller_categories_path(id: category) %>
+          <% end -%>
+        </td>
+      </tr>
+    <% end -%>
+  </table>
+
+  <%= will_paginate @categories %>
+</div>
