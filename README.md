@@ -1,7 +1,6 @@
 ## 支付宝支付功能测试
 
-### gem
-
+### gem 使用
 ```ruby
 gem 'alipay', '~> 0.15.0'
 gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
