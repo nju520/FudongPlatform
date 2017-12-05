@@ -22,7 +22,8 @@ class OrdersController < ApplicationController
     end
     pack_orders = PackOrder.create_pack_order_from_orders!(orders)
     main_order = MainOrder.create_main_order_from_pack_orders!(current_user, pack_orders)
-    redirect_to new_payment_path(main_order_no: main_order.main_order_no)
+    # redirect_to new_payment_path(main_order_no: main_order.main_order_no)
+    redirect_to generate_pay_payments_path(order_nos: orders.map(&:order_no).join(','))
   end
 
 end

@@ -13,10 +13,12 @@
 
     <br />
     <div class="pull-right">
-      <%= form_for @payment, url: payment_path(@payment), method: 'put' do |f| %>
+      <!--向支付宝支付链接发送一个Post请求, 不是Rails controller 处理的 action,-->
+      <form action="<%= @payment_url %>" method="post">
+        
         <strong>¥<%= @payment.total_money %></strong>
-        <%= f.submit '支付', class: "btn btn-success btn-lg" %>
-      <% end %>
+        <input type="submit" value="支付" class="btn btn-success btn-lg" />
+      </form>
     </div>
   </div>
 </div>

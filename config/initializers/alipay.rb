@@ -1,4 +1,4 @@
-@client = Alipay::Client.new(
+$alipay = Alipay::Client.new(
   url: ENV['ALIPAY_API'],
   app_id: ENV['APP_ID'],
   app_private_key: ENV['APP_PRIVATE_KEY'],

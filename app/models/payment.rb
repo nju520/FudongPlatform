@@ -8,7 +8,7 @@ class Payment < ApplicationRecord
   end
 
   belongs_to :user
-  belongs_to :main_order
+  belongs_to :main_order, optional: true
   has_many :orders
 
   before_create do
@@ -16,6 +16,28 @@ class Payment < ApplicationRecord
   end
 
   after_create_commit {OrderMessageBroadcastJob.perform_later self}
+
+  def self.create_from_orders! user, *orders
+    orders.flatten!
+
+    payment = nil
+    transaction do
+      payment = user.payments.create!(
+        total_money: orders.sum(&:total_money)
+      )
+
+      orders.each do |order|
+        if order.is_paid?
+          raise "order #{order.order_no} has already paid"
+        end
+
+        order.payment = payment
+        order.save!
+      end
+    end
+
+    payment
+  end
 
   def self.create_from_main_order!(user, main_order)
     orders = main_order.orders

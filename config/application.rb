@@ -11,6 +11,9 @@ Bundler.require(*Rails.groups)
 # ENV['ALIPAY_URL'] = 'https://mapi.alipay.com/gateway.do'
 ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
 ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
+# ENV['ALIPAY_RETURN_URL'] = 'https://helloworld.localtunnel.me/payments/pay_return'
+# ENV['ALIPAY_NOTIFY_URL'] = 'https://helloworld.localtunnel.me/payments/pay_notify'
+# ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/alipay_notify'
 
 module FudongPlatform
   class Application < Rails::Application
@@ -21,6 +24,8 @@ module FudongPlatform
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += %W[#{Rails.root}/lib]
+
+    config.action_controller.permit_all_parameters = true
 
     config.generators do |generator|
       generator.assets false
