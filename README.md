@@ -26,7 +26,14 @@ $alipay = Alipay::Client.new(
 设置回调地址
 
 ```ruby
-ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
-ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
+# ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
+# ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
+ENV['ALIPAY_RETURN_URL'] = 'https://risewinter/payments/pay_return'
+ENV['ALIPAY_NOTIFY_URL'] = 'https:///risewinter/payments/pay_notify'
 
 ```
+
+### 运行
+
+* rails server
+* lt --port 

@@ -6,8 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
-ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
+# ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
+# ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
+ENV['ALIPAY_RETURN_URL'] = 'https://risewinter.localtunnel.me/payments/pay_return'
+ENV['ALIPAY_NOTIFY_URL'] = 'https://risewinter.localtunnel.me/payments/pay_notify'
 
 module FudongPlatform
   class Application < Rails::Application

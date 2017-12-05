@@ -74,6 +74,14 @@ class Payment < ApplicationRecord
     end
   end
 
+  def do_failed_payment! options
+    self.transaction_no = options[:trade_no]
+    self.status = Payment::PaymentStatus::Failed
+    self.raw_response = options.to_json
+    self.payment_at = Time.now
+    self.save!
+  end
+
   private
   def syn_orders(status)
     self.orders.each do |order|

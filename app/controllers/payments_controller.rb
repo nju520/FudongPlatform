@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
 
   # => pay_return: 同步通知. 当用户支付成功之后, 支付宝将用户重定向pay_return地址.
   # => pay_notify: 异步通知. 可以多次调用
-  before_action :auth_request, only: [:pay_return, :pay_notify]
+  before_action :auth_request, only: [:pay_notify]
   before_action :find_and_validate_payment_no, only: [:pay_return, :pay_notify]
 
   # 进入付款页面(payments_path)点击付款之后, 是向payment_url发送一个请求
@@ -17,8 +17,8 @@ class PaymentsController < ApplicationController
     # byebug
     @payment_url = $alipay.page_execute_url(
       method: 'alipay.trade.page.pay',
-      return_url: ENV['ALIPAY_NOTIFY_URL'],
-      notify_url: ENV['ALIPAY_RETURN_URL'],
+      return_url: ENV['ALIPAY_RETURN_URL'],
+      notify_url: ENV['ALIPAY_NOTIFY_URL'],
       biz_content: {
        out_trade_no: @payment.payment_no,
        product_code: 'FAST_INSTANT_TRADE_PAY',
@@ -37,7 +37,9 @@ class PaymentsController < ApplicationController
 
   # 是页面的跳转
   def pay_return
-    do_payment
+    # do_payment
+    Rails.logger.info "alipay return params: #{params.to_hash}"
+    redirect_to success_payments_path
   end
 
   def pay_notify
@@ -97,7 +99,7 @@ class PaymentsController < ApplicationController
   def do_payment
     unless @payment.is_success? # 避免同步通知和异步通知多次调用
       if is_payment_success?
-        @payment.do_success_payment! params
+        @payment.do_success_payment! 
         redirect_to success_payments_path
       else
         @payment.do_failed_payment! params
@@ -112,10 +114,11 @@ class PaymentsController < ApplicationController
   def auth_request
     # @client.verify?(request.query_parameters)
     # => true / false
-    unless $alipay.verify?(params)
-      # render plain: 'success'
-      Rails.logger.info "PAYMENT DEBUG $alipay not verify!!"
-      Rails.logger.info "params: #{params.to_hash}"
+    Rails.logger.info "+++++ params: #{params.to_hash}"
+    notify_params = params.except(*request.path_parameters.keys)
+    Rails.logger.info "+++++ notify_params: #{notify_params.to_hash}"
+    unless $alipay.verify?(notify_params)
+      Rails.logger.info "!!!!!notify_verify failed"
       redirect_to failed_payments_path
     end
   end
