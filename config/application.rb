@@ -6,14 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# ENV['ALIPAY_PID'] = 'YOUR-ALIPAY-PARTNER-ID'
-# ENV['ALIPAY_MD5_SECRET'] = 'YOUR-ALIPAY-MD5-SECRET'
-# ENV['ALIPAY_URL'] = 'https://mapi.alipay.com/gateway.do'
 ENV['ALIPAY_RETURN_URL'] = 'http://localhost:3000/payments/pay_return'
 ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/pay_notify'
-# ENV['ALIPAY_RETURN_URL'] = 'https://helloworld.localtunnel.me/payments/pay_return'
-# ENV['ALIPAY_NOTIFY_URL'] = 'https://helloworld.localtunnel.me/payments/pay_notify'
-# ENV['ALIPAY_NOTIFY_URL'] = 'http://localhost:3000/payments/alipay_notify'
 
 module FudongPlatform
   class Application < Rails::Application
