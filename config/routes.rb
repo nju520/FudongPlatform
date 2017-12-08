@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :refunds, only: [:new, :create, :show]
+
   # 用户信息
   namespace :dashboard do
     resource :profile, only: [:show, :edit, :update]

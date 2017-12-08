@@ -46,6 +46,8 @@
       <% elsif status == Order::OrderStatus::Finished %>
         <%= link_to "订单已完结", '#', class: "btn btn-default btn-lg disabled" %>
       <% end %>
+
+      <%= link_to '点击退款', new_refund_path(id: order.id) %>
     </div>
     <div class="clearfix"></div>
   </div>
